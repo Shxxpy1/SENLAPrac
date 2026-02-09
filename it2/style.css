@@ -1,0 +1,120 @@
+:root{
+    --lightgray-color: #f0f0f0;
+    --gray-color: #898989;
+    --yellow-color: #f1c40f;
+    --black-color: #000000;
+    --blue-color: #1b6be2;
+    box-sizing: border-box;
+}
+
+@keyframes slide-in{
+    from{
+        transform: translateX(-100%);
+    }
+    to{
+        transform: translateX(0%);
+    }
+}
+
+h1{
+    animation: slide-in 0.5s ease-out;
+}
+
+.cards{
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-content: center;
+    gap: 50px;
+    padding: 0;
+}
+
+
+.card{
+    display: flex;
+    flex-direction: column;
+    font-family: "Open Sans", sans-serif;
+    border: 2px solid var(--gray-color);
+    border-radius: 10px;
+    padding: 10px 15px;
+    max-width: 280px;
+
+    transition: 
+        transform 0.25s ease,
+        background-color 0.25s ease,
+        border-color 0.2s ease;
+    
+}
+
+.card-name, .card-footer-color, .card-footer{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.card:hover{
+    background-color: var(--lightgray-color);
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.card:active{
+    background-color: var(--gray-color);
+    border: 2px solid var(--black-color);
+    transform: scale(1.05);
+}
+
+.card:active .repo-privacy{
+    border: 2px solid var(--black-color);
+    color: var(--black-color);
+    
+}
+
+.card-name{
+    padding: 0px;
+}
+
+
+.card-footer{
+    margin-top: auto;
+}
+
+
+.card-footer-color{
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--yellow-color);
+}
+
+.card-name h2{
+    margin: 0px;
+    color: var(--blue-color);
+}
+
+.repo-privacy{
+    font-size: 12px;
+    color: var(--gray-color);
+    border: 2px solid var(--gray-color);
+    border-radius: 10px;
+    padding: 2px 5px;
+}
+
+@media (min-width: 1000px) {
+    .cards{
+        grid-template-columns: repeat(3, auto);
+    }
+}
+
+@media (min-width: 551px) and (max-width: 999px){
+    .cards{
+        grid-template-columns: repeat(2, auto);
+    }
+}
+
+@media (max-width: 550px){
+    .cards{
+        grid-template-columns: repeat(1, auto);
+    }
+}
