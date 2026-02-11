@@ -52,6 +52,18 @@ h1{
     gap: 10px;
 }
 
+.card-name{
+    padding: 0px;
+}
+
+.card-name h2{
+    margin: 0px;
+    color: var(--blue-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .card:hover{
     background-color: var(--lightgray-color);
     cursor: pointer;
@@ -70,15 +82,9 @@ h1{
     
 }
 
-.card-name{
-    padding: 0px;
-}
-
-
 .card-footer{
     margin-top: auto;
 }
-
 
 .card-footer-color, .language-color{
     display: block;
@@ -86,11 +92,6 @@ h1{
     height: 12px;
     border-radius: 50%;
     background-color: var(--yellow-color);
-}
-
-.card-name h2{
-    margin: 0px;
-    color: var(--blue-color);
 }
 
 .repo-privacy{
@@ -135,6 +136,7 @@ h1{
 }
 
 #backBtn{
+    font-family: "Open Sans", sans-serif;
     align-self: center;
     width:120px;
     padding:6px;
@@ -153,19 +155,26 @@ h1{
     transform: scale(1.02);
 }
 
-@media (min-width: 1031px) {
+.error{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    font-size: 26px;
+}
+
+
+@media (min-width: 1061px) {
     .cards{
         grid-template-columns: repeat(3, auto);
     }
 }
 
-@media (min-width: 626px) and (max-width: 1030px){
+@media (min-width: 726px) and (max-width: 1060px){
     .cards{
         grid-template-columns: repeat(2, auto);
     }
 }
 
-@media (max-width: 625px){
+@media (max-width: 725px){
     .cards{
         grid-template-columns: repeat(1, auto);
     }

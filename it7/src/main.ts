@@ -2,7 +2,7 @@ import reposColor from "./colors.ts";
 import type { Repository } from "./types.ts";
 
 let repoList!: HTMLUListElement 
-let searchForm!: HTMLUListElement
+let searchForm!: HTMLFormElement
 let repos: Repository[] =  []
 
 async function fetchRepos(username: string): Promise<Repository[]> {
@@ -45,13 +45,13 @@ async function router() {
 
 function renderDetails(repo?: Repository) {
     if (!repo) {
-        repoList.innerHTML = "<p>Репозиторий не найден</p>"
+        repoList.innerHTML = `<p class="error">Репозиторий не найден</p>`
         return
     }
 
     repoList.innerHTML = `
         <div class="details">
-            <button id="backBtn">Back</button>
+            <button id="backBtn">Назад</button>
 
             <h2>${repo.name}</h2>
             <p>${repo.description}</p>
@@ -74,7 +74,7 @@ function renderDetails(repo?: Repository) {
 async function getRepos (username: string) {
     
     if (!username) {
-        repoList.innerHTML = "<p>Введите имя пользователя в строку поиска</p>"
+        repoList.innerHTML = `<p class="error">Введите имя пользователя в строку поиска</p>`
         return
     }    
 
@@ -117,16 +117,18 @@ async function getRepos (username: string) {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    searchForm = document.querySelector(".search-form") as HTMLUListElement
+    searchForm = document.querySelector(".search-form") as HTMLFormElement
     repoList = document.getElementById("repo-list") as HTMLUListElement
 
     
     searchForm.addEventListener("submit", (event) => {
         event.preventDefault()
         const username = (document.querySelector(".search-input") as HTMLInputElement).value.trim()
-        if (username) {
-            navigate(`/?username=${username}`)
+        if (!username) {
+            alert("Пожалуйста, введите имя пользователя")
+            return
         }
+        navigate(`/?username=${username}`)
     })
     router()
 })
