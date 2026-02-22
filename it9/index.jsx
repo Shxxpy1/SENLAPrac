@@ -107,3 +107,62 @@ const Greeting = memo(function Greeting({ name}) {
 });
 
 /// 3. useDefferredValue, useTransition
+
+/// useDefferredValue позволяет отложить обновление значения, если оно изменяется слишком часто.
+
+///Принцип работы: хук возвращает отложенное значение, которое при изменении не изменяется мгновенно, а обновляется в фоновом режиме. 
+// Остальная часть пользовательского интерфейса будет отрисована до изменения отложенного значения
+
+///Примеры использования:
+/// Отображение устаревшего содержимого во время загрузки свежего — если компонент отображает список объектов, 
+// useDeferredValue позволяет отложить представление списка, пока элементы не будут загружены.
+
+import { useState, Suspense, useDeferredValue } from "react";
+
+export default function MyApp(){
+    const [query, setQuery] = useState('');
+    const deferredQuery = useDeferredValue(query);
+    return(
+        <>
+            <label>
+                Search albums:
+                <input value={query} onChange={e => setQuery(e.target.value)}/>
+            </label>
+            <Suspense fallback={<h2>Loading...</h2>} >
+              <SearchResults query={deferredQuery} />
+            </Suspense>
+        </>
+    )
+}
+
+/// useTransition позволяет пометить обновление как не срочное, что позволяет избежать блокировки интерфейса при выполнении тяжелых операций.
+
+
+/// При этом ключевые моменты взаимодействия с интерфейсом (клик, ввод) остаются отзывчивыми, а само тяжёлое обновление может происходить чуть позже или в фоновом режиме
+/// Принцип работы: useTransition возвращает массив, содержащий ровно два элемента:
+/// 1) Флаг isPending — сообщает, есть ли ожидающий переход.
+/// 2) Функция startTransition — позволяет пометить обновление состояния как переход.
+
+/// Пример использования: при вводе текста поле ввода обновляется мгновенно, но фильтрация большого списка (filteredItems) оборачивается в startTransition, 
+// что позволяет React «приостанавливать» вычисления, если пользователь вводит много символов подряд. 
+// Это помогает избежать задержек в интерфейсе.
+
+import { useState, useTransition } from "react";
+
+export default function MyApp({}){
+    const [quantity, setQuantity] = useState(1);
+    const [isPending, setPending] = useTransition(false);
+    
+    const onUpdateQuantity = async newQuantity => {
+        setIsPending(true);
+        const savedQuantity = await UpdateQuantity(newQuantity);
+        setIsPending(false);
+        setQuantity(savedQuantity);
+    };
+    return(
+        <div>
+            <h1>Checkout</h1>
+            <Total quantity={quantity} isPending={isPending}/>
+        </div>
+    );
+}
