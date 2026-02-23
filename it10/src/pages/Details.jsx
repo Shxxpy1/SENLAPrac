@@ -1,5 +1,4 @@
 import {useParams, useNavigate} from 'react-router-dom'
-import {useEffect, useState } from 'react'
 import reposColor from "../colors"
 import useRepoStore from '../store/useRepoStore'
 
