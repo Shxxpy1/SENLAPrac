@@ -10,6 +10,10 @@ function Home() {
 
     async function fetchRepos(user) {
         const res =  await fetch(`https://api.github.com/users/${user}/repos`)
+        if (!res.ok){
+            alert("Пользователь не найден")
+            return []
+        }
         const data = await res.json()
         setRepos(data)
     
